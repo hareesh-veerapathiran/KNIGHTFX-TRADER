@@ -1,0 +1,3 @@
+import { Hero } from '@/components/sections/Hero';
+import { Mindset, About, Offers, Mentorship, Workshop, Partners, Insights, Community, FAQ, FinalCTA, Footer } from '@/components/sections/BrandSections';
+export default function Home() { return <main id="main"><Hero/><Mindset/><About/><Offers/><Mentorship/><Workshop/><Partners/><Insights/><Community/><FAQ/><FinalCTA/><Footer/></main>; }
