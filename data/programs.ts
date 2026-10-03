@@ -1,4 +1,43 @@
-export const programs = {
-  mentorship: { name: 'Personal Mentorship', price: '$250', availability: 'Limited availability', cta: 'Apply for Mentorship', url: '', topics: ['Market Fundamentals','Market Structure','Strategy Development','Trade Execution','Risk Management','Trading Psychology','Trade Journaling','Review & Improvement'] },
-  futures: { name: 'Futures Workshop', price: '$100', capacity: 10, availability: 'Limited to 10 members', cta: 'Join Waitlist', url: '', registrationOpen: false, topics: ['Futures Fundamentals','Market Structure','Strategy & Execution','Risk Management','Trade Planning','Interactive Q&A'] },
-};
+export const programs = [
+  {
+    id: 'personal-mentorship',
+    number: '01',
+    name: 'Personal Mentorship',
+    price: '$250',
+    availability: 'PERSONALIZED GUIDANCE',
+    description: 'Personalized guidance focused on developing a structured trading process.',
+    features: [
+      'Market Fundamentals',
+      'Market Structure',
+      'Strategy Development',
+      'Trade Execution',
+      'Risk Management',
+      'Trading Psychology',
+      'Trade Journaling',
+      'Review & Improvement',
+    ],
+    cta: 'Apply for Mentorship',
+    telegramUrl: 'https://t.me/Knightfx16',
+    telegramUsername: '@Knightfx16',
+  },
+  {
+    id: 'futures-workshop',
+    number: '02',
+    name: 'Futures Workshop',
+    price: '$100',
+    availability: 'LIMITED TO 10 MEMBERS',
+    capacity: 10,
+    description: 'An intensive workshop focused on understanding futures markets, structured execution and risk management.',
+    features: [
+      'Futures Fundamentals',
+      'Market Structure',
+      'Strategy & Execution',
+      'Risk Management',
+      'Trade Planning',
+      'Interactive Q&A',
+    ],
+    cta: 'Reserve Your Spot',
+    telegramUrl: 'https://t.me/Knightfx16',
+    telegramUsername: '@Knightfx16',
+  },
+] as const;
