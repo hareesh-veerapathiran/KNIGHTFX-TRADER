@@ -1,10 +1,9 @@
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Send, MessagesSquare } from 'lucide-react';
 import { Reveal, RevealDetails } from '@/components/ui/Reveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { ArrowLink } from '@/components/ui/ArrowLink';
 import { WorkshopEnrollment } from '@/components/sections/WorkshopEnrollment';
 import { partners } from '@/data/partners';
-import { socials } from '@/data/socials';
 import { site } from '@/data/site';
 import { CopyCode } from '@/components/ui/CopyCode';
 import { Parallax } from '@/components/ui/Parallax';
@@ -19,11 +18,57 @@ export function Workshop() { return <section id="workshop" className="workshop s
 
 export function Partners() { const confirmed=partners.filter(p=>p.isPartner); return <section id="partners" className="partners section-pad"><SectionHeading label="KNIGHTFX ECOSYSTEM">PARTNERED<br/><em>WITH</em></SectionHeading><Reveal delay={0.12}><div className="partner-promo-banner"><div><span>USE CODE</span><strong>{site.promoCode}</strong><small>FOR ALL PARTNER FIRMS</small></div><CopyCode code={site.promoCode}/></div></Reveal><Reveal delay={0.18}><div className="partner-intro"><p>Trusted platforms and firms within the KNIGHTFX ecosystem.</p></div></Reveal><div className="partner-grid">{confirmed.map((p,i)=><Reveal key={p.name} className="partner-card-reveal" delay={i*0.09}><article className="partner-card"><div className="partner-card-top"><span className="partner-index">0{i+1} / 04</span><ArrowUpRight size={17}/></div><div className={`partner-logo-wrap${p.logo ? ' has-logo' : ''}`}>{p.logo && <img className="partner-logo" src={p.logo} alt={`${p.name} official logo`} />}</div><h3 className="partner-card-name">{p.name}</h3><p className="partner-description">{p.description}</p>{p.offerText && <p className="partner-offer">AVAILABLE OFFER · {p.offerText}</p>}<a className="partner-visit" href={p.url} target="_blank" rel="noopener noreferrer">VISIT FIRM <ArrowUpRight size={16}/></a></article></Reveal>)}</div><Reveal delay={0.18}><p className="disclaimer-small">Partner offers, promotional codes and program terms may change. Please verify the current terms directly with each provider before purchasing.</p></Reveal></section>; }
 
-export function Community() { return <section id="community" className="community section-pad"><Parallax className="community-orb"/><Reveal><span className="eyebrow"><i/>TELEGRAM COMMUNITY</span></Reveal><div className="community-layout"><Reveal><h2>KNIGHT FX<br/><em>TRADERS.</em></h2></Reveal><Reveal delay={0.12}><div><p>Join the official KNIGHTFX community for trading education, market discussions and updates.</p><div className="social-links">{socials.map(s=><a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer">JOIN TELEGRAM <ArrowUpRight size={15}/></a>)}</div><span className="community-disclaimer">Educational Purpose Only<br/>Not SEBI Registered</span></div></Reveal></div></section>; }
+const communityPlatforms = [
+  {
+    number: '01',
+    name: site.community.telegram.name,
+    username: site.community.telegram.username,
+    url: site.community.telegram.url,
+    description: 'Join the official KNIGHTFX Telegram community for updates, announcements and trading discussions.',
+    cta: 'JOIN TELEGRAM',
+    Icon: Send,
+  },
+  {
+    number: '02',
+    name: site.community.discord.name,
+    username: 'KNIGHTFX TRADERS',
+    url: site.community.discord.url,
+    description: 'Join the KNIGHTFX Discord community for trader discussions, community interaction and updates.',
+    cta: 'JOIN DISCORD',
+    Icon: MessagesSquare,
+  },
+];
+
+export function Community() {
+  return <section id="community" className="community section-pad">
+    <Parallax className="community-orb"/>
+    <Reveal>
+      <div className="community-header">
+        <span className="eyebrow"><i/>OFFICIAL KNIGHTFX PLATFORMS</span>
+        <h2 className="community-heading">JOIN THE KNIGHTFX<br/><em>COMMUNITY</em></h2>
+        <p className="community-description">Connect with fellow traders, access community discussions and stay updated across our official platforms.</p>
+      </div>
+    </Reveal>
+    <div className="community-cards">
+      {communityPlatforms.map(({ number, name, username, url, description, cta, Icon }, index) => (
+        <Reveal key={name} delay={index * 0.12}>
+          <a className="community-card" href={url} target="_blank" rel="noopener noreferrer" aria-label={`${cta} — opens in a new tab`}>
+            <div className="community-card-top"><span>{number} — {name.toUpperCase()}</span><ArrowUpRight size={17}/></div>
+            <div className="community-card-icon"><Icon size={27} strokeWidth={1.6} aria-hidden="true"/></div>
+            <span className="community-card-title">{name.toUpperCase()} COMMUNITY</span>
+            <strong className="community-card-handle">{username}</strong>
+            <p>{description}</p>
+            <span className="community-card-cta">{cta} <ArrowUpRight size={16}/></span>
+          </a>
+        </Reveal>
+      ))}
+    </div>
+  </section>;
+}
 
 const questions=[['What is KNIGHTFX?','A trading-focused brand built around education, workshops and a community-driven approach to learning.'],['What does the Futures + CFD Workshop cover?','CFD and Futures fundamentals, market structure, price action, strategy and execution, risk management, trade planning, trading psychology, practical execution and interactive Q&A.'],['How much does the workshop cost?','The Futures + CFD Workshop is $100.'],['How many members can join the workshop?','The workshop is limited to 10 members.'],['How do I reserve a spot?','Message @Knightfx16 to reserve your place in the Futures + CFD Workshop.'],['How do partner offers work?','Confirmed partner offers and promo codes will be listed here. Always verify current terms with the provider.']];
 export function FAQ() { return <section className="faq section-pad"><SectionHeading label="QUESTIONS, ANSWERED">CLARITY BEFORE<br/><em>COMMITMENT.</em></SectionHeading><div className="faq-list">{questions.map(([q,a],i)=><RevealDetails key={q} className="faq-item" delay={i*0.08}><summary><span className="faq-num">0{i+1}</span>{q}<span className="faq-plus"/></summary><p>{a}</p></RevealDetails>)}</div></section>; }
 
 export function FinalCTA() { return <section className="final-cta section-pad" id="contact"><div className="final-mark">KNIGHT</div><Reveal><span className="eyebrow"><i/>YOUR NEXT MOVE STARTS WITH A PROCESS</span></Reveal><Reveal delay={0.08}><h2>MASTER<br/><em>THE PROCESS.</em></h2></Reveal><Reveal delay={0.16}><p>Discipline. Strategy. Growth.<br/>Build your process. Improve your execution. Keep learning.</p></Reveal><Reveal delay={0.24}><div className="final-actions"><ArrowLink href="#workshop">Explore the Workshop</ArrowLink></div></Reveal></section>; }
 
-export function Footer() { const year=2026; return <footer className="footer"><Reveal><div className="footer-main"><a className="footer-brand" href="#home"><span>KNIGHTFX</span><small>TRADERS</small><i>{site.tagline}</i></a><nav aria-label="Footer navigation">{['HOME','ABOUT','WORKSHOP','PARTNERS','COMMUNITY','CONTACT'].map((x,i)=><a key={x} href={['#home','#about','#workshop','#partners','#community','#contact'][i]}>{x}</a>)}</nav><div className="footer-social">{socials.map(s=><a href={s.href} key={s.label} target="_blank" rel="noreferrer">{s.label}<ArrowUpRight size={13}/></a>)}{!socials.length&&<span>SOCIAL LINKS COMING SOON</span>}</div></div></Reveal><Reveal delay={0.1}><div className="risk-copy"><span>RISK DISCLOSURE</span><p>Trading financial markets involves substantial risk and may not be suitable for every trader. Content, market commentary and educational material provided by KNIGHTFX are for informational and educational purposes only and should not be considered financial advice or a guarantee of future results. Past performance does not guarantee future results. Always conduct your own research and consider your individual risk tolerance.</p></div></Reveal><Reveal delay={0.18}><div className="footer-bottom"><span>© {year} KNIGHTFX TRADERS</span><span>DISCIPLINE • STRATEGY • GROWTH</span><div>{site.legal.termsUrl ? <a href={site.legal.termsUrl}>TERMS</a> : <span>TERMS</span>}{site.legal.privacyUrl ? <a href={site.legal.privacyUrl}>PRIVACY</a> : <span>PRIVACY</span>}{site.legal.riskUrl ? <a href={site.legal.riskUrl}>RISK DISCLOSURE</a> : <span>RISK DISCLOSURE</span>}</div></div></Reveal></footer>; }
+export function Footer() { const year=2026; return <footer className="footer"><Reveal><div className="footer-main"><a className="footer-brand" href="#home"><span>KNIGHTFX</span><small>TRADERS</small><i>{site.tagline}</i></a><nav aria-label="Footer navigation">{['HOME','ABOUT','WORKSHOP','PARTNERS','COMMUNITY','CONTACT'].map((x,i)=><a key={x} href={['#home','#about','#workshop','#partners','#community','#contact'][i]}>{x}</a>)}</nav><div className="footer-social">{Object.values(site.community).map(platform=><a href={platform.url} key={platform.name} target="_blank" rel="noopener noreferrer">{platform.name}<ArrowUpRight size={13}/></a>)}</div></div></Reveal><Reveal delay={0.1}><div className="risk-copy"><span>RISK DISCLOSURE</span><p>Trading financial markets involves substantial risk and may not be suitable for every trader. Content, market commentary and educational material provided by KNIGHTFX are for informational and educational purposes only and should not be considered financial advice or a guarantee of future results. Past performance does not guarantee future results. Always conduct your own research and consider your individual risk tolerance.</p></div></Reveal><Reveal delay={0.18}><div className="footer-bottom"><span>© {year} KNIGHTFX TRADERS</span><span>DISCIPLINE • STRATEGY • GROWTH</span><div>{site.legal.termsUrl ? <a href={site.legal.termsUrl}>TERMS</a> : <span>TERMS</span>}{site.legal.privacyUrl ? <a href={site.legal.privacyUrl}>PRIVACY</a> : <span>PRIVACY</span>}{site.legal.riskUrl ? <a href={site.legal.riskUrl}>RISK DISCLOSURE</a> : <span>RISK DISCLOSURE</span>}</div></div></Reveal></footer>; }
