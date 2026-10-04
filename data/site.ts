@@ -6,5 +6,5 @@ export const site = {
   url: '',
   logo: '/assets/knightfx-logo.jpg',
   contactUrl: '',
-  legal: { termsUrl: '', privacyUrl: '', riskUrl: '' },
+  legal: { termsUrl: '', privacyUrl: 'https://knightfx.vercel.app/privacy', riskUrl: '' },
 };

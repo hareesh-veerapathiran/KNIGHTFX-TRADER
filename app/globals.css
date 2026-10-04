@@ -83,3 +83,91 @@
 @media(max-width:700px){.workshop-card-intro{align-items:flex-start;flex-direction:column;gap:20px}.workshop-modules{grid-template-columns:1fr}.workshop-telegram{align-items:flex-start;flex-direction:column}.workshop-telegram>a{min-height:40px}.workshop-price-line{gap:15px}}
 @media(max-width:500px){.workshop-heading .section-heading h2{font-size:clamp(42px,10.5vw,54px)}}
 @media(max-width:390px){.workshop-card{padding:22px 17px}.workshop-card-top{align-items:flex-start;flex-direction:column}.workshop-card-intro h3{font-size:34px}.workshop-price-line{gap:12px}.workshop-price-line del{font-size:26px}.workshop-current-price{font-size:76px}.workshop-coupon{padding:15px 12px 9px}.workshop-coupon-form{gap:7px}.workshop-coupon-form .button{min-width:70px;padding:0 12px}}
+
+/* Workshop enrollment refinement */
+.workshop-heading{grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:clamp(28px,5vw,76px);margin-bottom:clamp(30px,4vw,48px)}
+.workshop-heading>div:last-child p{max-width:530px;font-size:clamp(13px,1.2vw,15px);line-height:1.9}
+.workshop-card{width:min(1280px,100%);padding:clamp(23px,3.2vw,42px);height:auto;transition:border-color .3s,box-shadow .3s}
+.workshop-card:hover{transform:none}
+.workshop-card-layout{display:grid;grid-template-columns:minmax(0,1.38fr) minmax(300px,1fr);gap:clamp(26px,4vw,58px);align-items:start;padding-top:26px}
+.workshop-card-left{min-width:0}
+.workshop-card-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:30px}
+.workshop-card-title-row h3{max-width:540px;margin:0;color:#f5f5f5;font-size:clamp(28px,3.5vw,48px);line-height:1.02;letter-spacing:-.06em;font-weight:650;text-transform:uppercase}
+.workshop-market-tags{gap:8px;font-size:9px}
+.workshop-market-tags span{padding:9px 10px;white-space:nowrap}
+.workshop-modules{margin-top:9px;column-gap:clamp(12px,2vw,27px)}
+.workshop-modules li{min-height:42px;font-size:clamp(9px,.85vw,11px);gap:9px}
+.workshop-price-panel{padding-left:clamp(22px,3vw,40px)}
+.workshop-price-line{gap:clamp(12px,1.5vw,20px);margin:14px 0 12px;flex-wrap:wrap}
+.workshop-price-line del{font-size:clamp(24px,2.8vw,36px)}
+.workshop-current-price{font-size:clamp(4rem,6vw,7rem);line-height:.98}
+.workshop-capacity-price{margin:9px 0 0;font:9px var(--mono);letter-spacing:.1em}
+.workshop-capacity-price i{animation:none}
+.workshop-coupon{margin-top:23px;padding:0;border:0;background:transparent}
+.workshop-coupon h4{margin-bottom:10px}
+.workshop-coupon-form{gap:8px}
+.workshop-coupon-form input,.workshop-coupon-form .button{height:54px}
+.workshop-coupon-form input{font-size:10px}
+.workshop-coupon-form .button{min-width:82px}
+.workshop-coupon-feedback{min-height:16px;margin-top:8px}
+.workshop-offer-unlocked{overflow:hidden;padding-top:4px}
+.workshop-unlocked-status{display:block;margin:18px 0 13px;color:var(--lime);font:9px var(--mono);letter-spacing:.1em}
+.workshop-unlocked-original{display:flex;align-items:baseline;gap:12px;color:#8c8c8c;font:13px var(--mono)}
+.workshop-unlocked-original del{text-decoration-thickness:1px}
+.workshop-unlocked-original span{color:#bcbcbc}
+.workshop-discount-row{margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}
+.workshop-final-label{margin-top:13px}
+.workshop-final-price-wrap{min-height:clamp(58px,6vw,88px)}
+.workshop-final-price{font-size:clamp(3.5rem,5vw,6rem);line-height:1}
+.workshop-reserve{height:60px;margin-top:17px}
+.workshop-telegram{align-items:flex-start;flex-direction:column;gap:10px;margin-top:17px;padding-top:15px}
+.workshop-telegram>div{grid-template-columns:auto auto;align-items:center;gap:9px 12px}
+.workshop-telegram>div>span{font-size:7px}
+.workshop-telegram strong{font-size:10px}
+.workshop-telegram>a{min-height:32px}
+.workshop-card:has(.workshop-reserve):hover,.workshop-card:hover{border-color:#b6ff006b;box-shadow:0 17px 54px #b6ff0010}
+.workshop-modal-backdrop{position:fixed;z-index:120;inset:0;display:flex;align-items:center;justify-content:center;padding:22px;background:#000c;backdrop-filter:blur(10px)}
+.workshop-lead-modal{width:min(620px,100%);max-height:min(92dvh,900px);overflow-y:auto;padding:clamp(23px,4vw,42px);border:1px solid #ffffff24;border-radius:4px;background:radial-gradient(ellipse at 90% 0,#b6ff000d,transparent 34%),#0b0b0b;box-shadow:0 22px 80px #000b,0 0 45px #b6ff0009}
+.workshop-modal-top{display:flex;align-items:center;justify-content:space-between;gap:15px}
+.workshop-modal-close{width:40px;height:40px;display:grid;place-items:center;border:1px solid #ffffff25;background:#ffffff05;color:#ddd;cursor:pointer}
+.workshop-modal-close:hover{border-color:var(--lime);color:var(--lime)}
+.workshop-lead-modal>h3{margin:28px 0 10px;font-size:clamp(31px,5vw,48px);line-height:1;letter-spacing:-.06em}
+.workshop-lead-modal>h3 em{color:var(--lime)}
+.workshop-lead-modal>p{margin:0 0 25px;max-width:440px;color:#aaa;font-size:12px;line-height:1.8}
+.workshop-lead-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.workshop-field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.workshop-field label{color:#aaa;font:8px var(--mono);letter-spacing:.14em}
+.workshop-field input{width:100%;height:48px;min-width:0;padding:0 13px;border:1px solid #ffffff24;border-radius:0;background:#050505;color:#f5f5f5;font:11px var(--sans)}
+.workshop-field input::placeholder{color:#696969}
+.workshop-field input:focus-visible{outline:2px solid var(--lime);outline-offset:2px;border-color:var(--lime)}
+.workshop-field input[aria-invalid=true]{border-color:#f0947c}
+.workshop-field-help,.workshop-field-error{font-size:10px;line-height:1.65}
+.workshop-field-help{color:#888}
+.workshop-field-error{color:#ff9b83}
+.workshop-consent-field{grid-column:1/-1}
+.workshop-consent-field>label{display:flex;align-items:flex-start;gap:11px;color:#d0d0d0;font-size:11px;line-height:1.65;cursor:pointer}
+.workshop-consent-field input{flex:none;width:17px;height:17px;margin:2px 0 0;accent-color:var(--lime)}
+.workshop-consent-field p{margin:10px 0 0 28px;color:#858585;font-size:10px;line-height:1.7}
+.workshop-consent-field p a{color:var(--lime);text-decoration:underline;text-underline-offset:3px}
+.workshop-submit-error{grid-column:1/-1;margin:0;color:#ff9b83;font-size:11px;line-height:1.7}
+.workshop-lead-submit{grid-column:1/-1;width:100%;height:56px;justify-content:space-between;margin-top:1px;padding:0 17px;cursor:pointer}
+.workshop-lead-submit:disabled{opacity:.65;cursor:wait}
+.privacy-page{min-height:100vh;padding:clamp(100px,12vw,160px) max(7.6vw,28px) 90px;background:radial-gradient(ellipse at 85% 0,#b6ff0009,transparent 30%),#050505;color:#f5f5f5}
+.privacy-back{display:inline-flex;margin-bottom:55px;color:#aaa;font:9px var(--mono);letter-spacing:.12em}
+.privacy-back:hover{color:var(--lime)}
+.privacy-page header{max-width:900px;padding-bottom:34px;border-bottom:1px solid var(--line)}
+.privacy-page h1{margin:25px 0 15px;font-size:clamp(48px,8vw,100px);line-height:.95;letter-spacing:-.075em;font-weight:600}
+.privacy-page h1 em{color:var(--lime)}
+.privacy-page header>p{color:#888;font:9px var(--mono);letter-spacing:.12em}
+.privacy-content{max-width:820px;padding-top:26px}
+.privacy-content section{padding:24px 0;border-bottom:1px solid var(--line)}
+.privacy-content h2{margin:0 0 10px;color:#f5f5f5;font-size:16px;letter-spacing:-.02em}
+.privacy-content p{margin:0;color:#a3a3a3;font-size:13px;line-height:1.9}
+.privacy-content p+p{margin-top:12px}
+.privacy-content a{color:var(--lime);text-decoration:underline;text-underline-offset:3px}
+.privacy-content .privacy-config-note{margin:25px 0;color:#767676;font-size:11px}
+@media(max-width:1050px){.workshop-card-layout{grid-template-columns:minmax(0,1.2fr) minmax(290px,1fr);gap:25px}.workshop-price-panel{padding-left:24px}.workshop-card-title-row{flex-direction:column;gap:15px}}
+@media(max-width:900px){.workshop-card-layout{grid-template-columns:1fr;gap:26px}.workshop-price-panel{padding:25px 0 0;border:0;border-top:1px solid var(--line)}.workshop-card-title-row{flex-direction:row}.workshop-current-price{font-size:clamp(4rem,9vw,6rem)}}
+@media(max-width:700px){.workshop-heading{grid-template-columns:1fr;gap:19px}.workshop-card-layout{padding-top:21px}.workshop-card-title-row{align-items:flex-start;flex-direction:column;margin-bottom:25px}.workshop-modules{grid-template-columns:1fr}.workshop-modules li{min-height:40px;font-size:10px}.workshop-price-panel{padding-top:22px}.workshop-coupon{margin-top:19px}.workshop-coupon-form input,.workshop-coupon-form .button{height:54px}.workshop-telegram{align-items:flex-start;flex-direction:column}.workshop-modal-backdrop{align-items:flex-end;padding:0}.workshop-lead-modal{width:100%;max-height:94dvh;padding:25px 23px max(26px,env(safe-area-inset-bottom));border-radius:12px 12px 0 0}.privacy-page{padding-left:25px;padding-right:25px}}
+@media(max-width:430px){.workshop-card{padding:22px 18px}.workshop-card-top{padding-bottom:14px}.workshop-market-tags{gap:7px}.workshop-price-line{gap:13px}.workshop-current-price{font-size:clamp(62px,18vw,78px)}.workshop-coupon-form{flex-direction:column}.workshop-coupon-form .button{width:100%}.workshop-lead-form{grid-template-columns:1fr;gap:14px}.workshop-consent-field,.workshop-submit-error,.workshop-lead-submit{grid-column:1}.workshop-lead-modal{padding-left:19px;padding-right:19px}}
+@media(prefers-reduced-motion:reduce){.workshop-capacity-price i{animation:none}}
