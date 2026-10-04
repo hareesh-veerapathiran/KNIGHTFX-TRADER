@@ -152,6 +152,17 @@
 .workshop-submit-error{grid-column:1/-1;margin:0;color:#ff9b83;font-size:11px;line-height:1.7}
 .workshop-lead-submit{grid-column:1/-1;width:100%;height:56px;justify-content:space-between;margin-top:1px;padding:0 17px;cursor:pointer}
 .workshop-lead-submit:disabled{opacity:.65;cursor:wait}
+.workshop-contact-fallback{grid-column:1/-1;display:inline-flex;align-items:center;justify-content:space-between;min-height:44px;margin-top:-5px;padding:0 15px;border:1px solid #ffffff24;color:#ddd;font:9px var(--mono);letter-spacing:.1em}
+.workshop-contact-fallback-note{grid-column:1/-1;margin:0;color:#aaa;font-size:11px;line-height:1.7}
+.workshop-contact-fallback svg{color:var(--lime);transition:transform .2s}
+.workshop-contact-fallback:hover{border-color:#b6ff006b;color:var(--lime)}
+.workshop-contact-fallback:hover svg{transform:translate(3px,-2px)}
+.workshop-submit-success{padding:28px 0 4px}
+.workshop-submit-success>span{display:block;margin-bottom:19px;color:var(--lime);font:10px var(--mono);letter-spacing:.14em}
+.workshop-submit-success h3{margin:0 0 13px;font-size:clamp(34px,5vw,52px);line-height:.98;letter-spacing:-.06em}
+.workshop-submit-success h3 em{color:var(--lime)}
+.workshop-submit-success p{max-width:420px;margin:0 0 21px;color:#aaa;font-size:12px;line-height:1.8}
+.workshop-submit-success>strong{color:#d8d8d8;font:9px var(--mono);letter-spacing:.14em}
 .privacy-page{min-height:100vh;padding:clamp(100px,12vw,160px) max(7.6vw,28px) 90px;background:radial-gradient(ellipse at 85% 0,#b6ff0009,transparent 30%),#050505;color:#f5f5f5}
 .privacy-back{display:inline-flex;margin-bottom:55px;color:#aaa;font:9px var(--mono);letter-spacing:.12em}
 .privacy-back:hover{color:var(--lime)}

@@ -46,10 +46,14 @@ export function WorkshopEnrollment() {
   const [leadErrors, setLeadErrors] = useState<LeadErrors>({});
   const [submitError, setSubmitError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionComplete, setSubmissionComplete] = useState(false);
+  const [unavailableRetries, setUnavailableRetries] = useState(0);
   const reduceMotion = useReducedMotion();
   const modalRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
+  const submissionLockedRef = useRef(false);
   const finalPrice = workshop.currentPrice - workshop.coupon.discount;
+  submissionLockedRef.current = isSubmitting || submissionComplete;
 
   useEffect(() => {
     if (!modalOpen) return;
@@ -59,7 +63,7 @@ export function WorkshopEnrollment() {
     modalRef.current?.querySelector<HTMLElement>('[name="fullName"]')?.focus();
 
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
+      if (event.key === 'Escape' && !submissionLockedRef.current) {
         event.preventDefault();
         setModalOpen(false);
       }
@@ -75,6 +79,9 @@ export function WorkshopEnrollment() {
       } else if (!event.shiftKey && document.activeElement === last) {
         event.preventDefault();
         first?.focus();
+      } else if (focusable.length === 0) {
+        event.preventDefault();
+        modalRef.current.focus();
       }
     }
 
@@ -85,6 +92,10 @@ export function WorkshopEnrollment() {
       previousFocusRef.current?.focus();
     };
   }, [modalOpen]);
+
+  useEffect(() => {
+    if (submissionComplete) modalRef.current?.focus();
+  }, [submissionComplete]);
 
   function applyCoupon(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -125,17 +136,27 @@ export function WorkshopEnrollment() {
           couponCode: couponInput.trim(),
         }),
       });
-      const result = await response.json().catch(() => null) as { ok?: boolean; error?: string } | null;
+      const result = await response.json().catch(() => null) as { ok?: boolean; code?: string; discountAmount?: number; finalPrice?: number } | null;
 
       if (!response.ok || !result?.ok) {
-        setSubmitError(result?.error || 'We could not submit your details. Please try again.');
+        if (result?.code === 'unavailable' || result?.code === 'configuration_missing') setUnavailableRetries((count) => count + 1);
+        setSubmitError('Unable to submit your details right now. Please try again.');
+        return;
+      }
+
+      if (result.discountAmount !== workshop.coupon.discount || result.finalPrice !== finalPrice) {
+        setSubmitError('Unable to submit your details right now. Please try again.');
         return;
       }
 
       setOfferUnlocked(true);
-      setModalOpen(false);
+      setSubmissionComplete(true);
+      window.setTimeout(() => {
+        window.location.href = workshop.telegramUrl;
+      }, 1100);
     } catch {
-      setSubmitError('We could not connect securely. Please try again.');
+      setUnavailableRetries((count) => count + 1);
+      setSubmitError('Unable to submit your details right now. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -277,7 +298,7 @@ export function WorkshopEnrollment() {
             exit={{ opacity: 0 }}
             transition={{ duration: reduceMotion ? 0.01 : 0.2 }}
             onMouseDown={(event) => {
-              if (event.target === event.currentTarget && !isSubmitting) setModalOpen(false);
+              if (event.target === event.currentTarget && !isSubmitting && !submissionComplete) setModalOpen(false);
             }}
           >
             <motion.div
@@ -285,6 +306,7 @@ export function WorkshopEnrollment() {
               className="workshop-lead-modal"
               role="dialog"
               aria-modal="true"
+              tabIndex={-1}
               aria-labelledby="workshop-modal-title"
               aria-describedby="workshop-modal-description"
               initial={reduceMotion ? false : { opacity: 0, scale: 0.98, y: 20 }}
@@ -292,10 +314,18 @@ export function WorkshopEnrollment() {
               exit={reduceMotion ? undefined : { opacity: 0, scale: 0.98, y: 12 }}
               transition={{ duration: reduceMotion ? 0.01 : 0.28, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="workshop-modal-top">
+            <div className="workshop-modal-top">
                 <span className="eyebrow"><i/>KNIGHTFX WORKSHOP OFFER</span>
-                <button className="workshop-modal-close" type="button" aria-label="Close offer form" onClick={() => !isSubmitting && setModalOpen(false)} disabled={isSubmitting}><X size={18}/></button>
+                <button className="workshop-modal-close" type="button" aria-label="Close offer form" onClick={() => !isSubmitting && !submissionComplete && setModalOpen(false)} disabled={isSubmitting || submissionComplete}><X size={18}/></button>
               </div>
+              {submissionComplete ? (
+                <div className="workshop-submit-success" role="status" aria-live="assertive">
+                  <span>✓ OFFER UNLOCKED</span>
+                  <h3 id="workshop-modal-title">YOUR DETAILS<br/><em>ARE SUBMITTED.</em></h3>
+                  <p id="workshop-modal-description">Your workshop details have been submitted successfully. Redirecting you to KNIGHTFX on Telegram…</p>
+                  <strong>FINAL PRICE · ${finalPrice}</strong>
+                </div>
+              ) : <>
               <h3 id="workshop-modal-title">UNLOCK YOUR<br/><em>KNIGHTFX OFFER</em></h3>
               <p id="workshop-modal-description">Enter your details to access the exclusive KNIGHTFX workshop offer.</p>
 
@@ -333,9 +363,14 @@ export function WorkshopEnrollment() {
 
                 {submitError && <p className="workshop-submit-error" role="alert" aria-live="polite">{submitError}</p>}
                 <button className="button button-lime workshop-lead-submit" type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? 'SUBMITTING…' : 'UNLOCK MY $100 OFFER'} <ArrowUpRight size={16}/>
+                  {isSubmitting ? 'SUBMITTING…' : submitError ? 'TRY AGAIN' : 'UNLOCK MY $100 OFFER'} <ArrowUpRight size={16}/>
                 </button>
+                {unavailableRetries >= 2 && submitError && <>
+                  <p className="workshop-contact-fallback-note" role="status">The registration service is still unavailable. Please contact us on Telegram.</p>
+                  <a className="workshop-contact-fallback" href={workshop.telegramUrl} target="_blank" rel="noopener noreferrer">CONTACT ON TELEGRAM <ArrowUpRight size={14}/></a>
+                </>}
               </form>
+              </>}
             </motion.div>
           </motion.div>
         )}

@@ -67,9 +67,12 @@ export async function POST(request: Request) {
     return response(400, { ok: false, error: 'Please check the required details, coupon code, and consent.' });
   }
 
-  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!supabaseUrl || !serviceKey) return response(503, { ok: false, error: 'Workshop registration is temporarily unavailable. Please contact us on Telegram.' });
+  if (!supabaseUrl || !serviceKey) {
+    console.error('[workshop-leads] Missing server-side Supabase configuration.');
+    return response(503, { ok: false, code: 'configuration_missing' });
+  }
 
   const forwarded = request.headers.get('x-forwarded-for')?.split(',').at(-1)?.trim();
   const clientIp = forwarded || request.headers.get('x-real-ip') || 'unknown';
@@ -85,10 +88,13 @@ export async function POST(request: Request) {
       signal: AbortSignal.timeout(5000),
     });
   } catch {
-    return response(503, { ok: false, error: 'We could not securely verify your request. Please try again.' });
+    return response(503, { ok: false, code: 'unavailable' });
   }
-  if (!limited.ok) return response(503, { ok: false, error: 'Workshop registration is not configured yet. Please contact us on Telegram.' });
-  if (await limited.json().catch(() => false) !== true) return response(429, { ok: false, error: 'Too many attempts. Please wait a few minutes and try again.' });
+  if (!limited.ok) {
+    console.error('[workshop-leads] Rate-limit RPC rejected the request with status', limited.status);
+    return response(503, { ok: false, code: 'unavailable' });
+  }
+  if (await limited.json().catch(() => false) !== true) return response(429, { ok: false, code: 'rate_limited' });
 
   const discountAmount = workshop.coupon.discount;
   const finalPrice = workshop.currentPrice - discountAmount;
@@ -119,14 +125,14 @@ export async function POST(request: Request) {
       signal: AbortSignal.timeout(8000),
     });
   } catch {
-    return response(503, { ok: false, error: 'We could not securely save your details. Please try again.' });
+    return response(503, { ok: false, code: 'unavailable' });
   }
 
-  if (stored.status === 409) return response(409, { ok: false, error: 'These details have already been submitted. Please contact us if you need help.' });
+  if (stored.status === 409) return response(409, { ok: false, code: 'duplicate' });
   if (!stored.ok) {
-    if (stored.status >= 500) return response(503, { ok: false, error: 'We could not securely save your details. Please try again.' });
-    return response(503, { ok: false, error: 'Workshop registration is not configured yet. Please contact us on Telegram.' });
+    console.error('[workshop-leads] Supabase insert failed with status', stored.status);
+    return response(503, { ok: false, code: 'unavailable' });
   }
 
-  return response(200, { ok: true });
+  return response(200, { ok: true, discountAmount, finalPrice });
 }

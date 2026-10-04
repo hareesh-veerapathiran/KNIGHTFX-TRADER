@@ -7,7 +7,7 @@ The registration API returns success only after it has written the lead to Supab
 1. Create or select the Supabase project used for private workshop registration.
 2. Run `supabase/workshop-leads.sql` in its SQL editor.
 3. Configure these environment variables in the hosting project and local `.env.local` (never commit the latter):
-   - `SUPABASE_URL` — the project URL.
+   - `SUPABASE_URL` — the project URL. `NEXT_PUBLIC_SUPABASE_URL` is also accepted as a fallback for the URL only.
    - `SUPABASE_SERVICE_ROLE_KEY` — the service-role key. Keep it server-only; do not use a `NEXT_PUBLIC_` variable.
 4. Deploy and confirm the form can submit a test registration before advertising the offer. Remove the test record afterward.
 
