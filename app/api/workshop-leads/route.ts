@@ -68,8 +68,8 @@ export async function POST(request: Request) {
   }
 
   const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!supabaseUrl || !serviceKey) {
+  const secretKey = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseUrl || !secretKey) {
     console.error('[workshop-leads] Missing server-side Supabase configuration.');
     return response(503, { ok: false, code: 'configuration_missing' });
   }
@@ -82,7 +82,7 @@ export async function POST(request: Request) {
   try {
     limited = await fetch(`${supabaseUrl.replace(/\/$/, '')}/rest/v1/rpc/allow_workshop_lead`, {
       method: 'POST',
-      headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}`, 'Content-Type': 'application/json' },
+      headers: { apikey: secretKey, 'Content-Type': 'application/json' },
       body: JSON.stringify({ p_ip_hash: ipHash }),
       cache: 'no-store',
       signal: AbortSignal.timeout(5000),
@@ -104,8 +104,7 @@ export async function POST(request: Request) {
     stored = await fetch(endpoint, {
       method: 'POST',
       headers: {
-        apikey: serviceKey,
-        Authorization: `Bearer ${serviceKey}`,
+        apikey: secretKey,
         'Content-Type': 'application/json',
         Prefer: 'return=minimal',
       },

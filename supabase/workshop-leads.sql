@@ -52,3 +52,5 @@ end;
 $$;
 revoke all on function public.allow_workshop_lead(text) from public, anon, authenticated;
 grant execute on function public.allow_workshop_lead(text) to service_role;
+
+notify pgrst, 'reload schema';
