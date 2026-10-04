@@ -1,13 +1,9 @@
 export const workshop = {
   id: 'futures-cfd-workshop',
   name: 'Futures + CFD Workshop',
-  originalPrice: 300,
-  currentPrice: 150,
+  referencePrice: 350,
+  price: 100,
   capacity: 10,
-  coupon: {
-    code: 'KNIGHTFX',
-    discount: 50,
-  },
   telegramUrl: 'https://t.me/Knightfx16',
   telegramUsername: '@Knightfx16',
   cta: 'Reserve Your Spot',
@@ -25,23 +21,3 @@ export const workshop = {
     'INTERACTIVE Q&A',
   ],
 } as const;
-
-export function validateWorkshopCoupon(input: string) {
-  const code = input.trim().toUpperCase();
-  if (!code) return 'empty' as const;
-  return code === workshop.coupon.code.toUpperCase() ? 'verified' as const : 'invalid' as const;
-}
-
-export type WorkshopLead = {
-  id: string;
-  fullName: string;
-  email: string;
-  mobileNumber: string;
-  telegramUsernameOrId: string;
-  couponCode: string;
-  discountAmount: number;
-  finalPrice: number;
-  consent: true;
-  createdAt: string;
-  source: 'KNIGHTFX Futures + CFD Workshop';
-};
