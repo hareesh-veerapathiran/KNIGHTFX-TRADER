@@ -1,10 +1,12 @@
 export const site = {
-  name: 'KNIGHTFX TRADERS',
+  name: 'KNIGHTFX TRADING LABS',
   tagline: 'DISCIPLINE • STRATEGY • GROWTH',
   promoCode: 'KNIGHTFX',
-  description: 'KNIGHTFX TRADERS — combined CFD and futures workshop, trading education and community.',
-  url: '',
-  logo: '/assets/knightfx-logo.jpg',
+  description: 'KNIGHTFX TRADING LABS — disciplined trading education, community and the upcoming Inner Circle.',
+  url: 'https://knightfx.vercel.app',
+  logo: '/assets/brand/knightfx-trading-labs-1024.webp',
+  logoSmall: '/assets/brand/knightfx-trading-labs-512.webp',
+  emblem: '/assets/brand/knightfx-knight-emblem.webp',
   contactUrl: '',
   community: {
     telegram: {

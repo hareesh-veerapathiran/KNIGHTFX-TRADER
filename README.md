@@ -1,4 +1,4 @@
-# KNIGHTFX TRADERS
+# KNIGHTFX TRADING LABS
 
 A Next.js, TypeScript and Tailwind site built around the supplied KNIGHTFX logo.
 
@@ -10,6 +10,6 @@ A Next.js, TypeScript and Tailwind site built around the supplied KNIGHTFX logo.
 
 ## Update brand details
 
-Edit the files in `data/` to update workshop pricing, Telegram registration, official partner URLs and logos, social profiles, legal page URLs, and the public site URL. Keep `isPartner` false until each relationship is confirmed. Add only verified offers. Workshop details and capacity are configured in `data/workshop.ts`.
+Edit the files in `data/` to update partner affiliate URLs and logos, the partner promo code, community links, legal page URLs, and the public site URL. Partner records live in `data/partners.ts`; community and site metadata live in `data/site.ts`.
 
-The supplied image is used at `public/assets/knightfx-logo.jpg` without alteration. Replace it with an official source asset only when provided.
+The supplied KNIGHTFX Trading Labs artwork is preserved at `public/assets/brand/knightfx-trading-labs-original.jpg`; responsive WebP variants and a knight-emblem favicon are generated from it.
