@@ -5,6 +5,7 @@ export const site = {
   description: 'KNIGHTFX TRADING LABS — disciplined trading education, community and the upcoming Inner Circle.',
   url: 'https://knightfx.vercel.app',
   logo: '/assets/brand/knightfx-trading-labs-1024.webp',
+  heroLogo: '/assets/brand/knightfx-trading-labs-circle.webp',
   logoSmall: '/assets/brand/knightfx-trading-labs-512.webp',
   emblem: '/assets/brand/knightfx-knight-emblem.webp',
   contactUrl: '',
