@@ -6,7 +6,7 @@ export const site = {
   url: 'https://knightfx.vercel.app',
   logo: '/assets/brand/knightfx-trading-labs-1024.webp',
   heroLogo: '/assets/brand/knightfx-trading-labs-circle.webp',
-  logoSmall: '/assets/brand/knightfx-trading-labs-512.webp',
+  logoSmall: '/assets/brand/knightfx-trading-labs-footer.webp',
   emblem: '/assets/brand/knightfx-knight-emblem.webp',
   contactUrl: '',
   community: {
