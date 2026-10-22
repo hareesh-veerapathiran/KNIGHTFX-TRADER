@@ -24,9 +24,11 @@ export const partners: Partner[] = [
   {
     name: 'FundedHive',
     affiliateUrl: 'https://funded.tradinghive.com/home',
+    logo: '/assets/partners/fundedhive-wordmark.webp',
   },
   {
     name: 'FunderBlu',
     affiliateUrl: 'https://affiliates.funderblu.com/click?campaign_id=4&ref_id=644',
+    logo: '/assets/partners/funderblu-wordmark.webp',
   },
 ];
