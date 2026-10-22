@@ -19,7 +19,7 @@ export const partners: Partner[] = [
   {
     name: 'FundedSquad',
     affiliateUrl: 'https://fundedsquad.com/?squad=3434',
-    logo: '/assets/partners/codex-clipboard-e67e45cd-05ff-4418-b128-d969bdb5fce9.png',
+    logo: '/assets/partners/fundedsquad-wordmark.webp',
   },
   {
     name: 'FundedHive',
